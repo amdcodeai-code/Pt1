@@ -1,0 +1,175 @@
+<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Periodic Table Training Lab</title>
+<style>
+:root{--bg:#070A0F;--s:#0D121A;--s2:#121923;--p:#E8EEF5;--sec:#8D9AAA;--ac:#63D6FF;--ok:#65E6A5;--wa:#FFC857;--er:#FF667A;--bd:#ffffff1f;--gr:#ffffff09;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme=light]{--bg:#F3F6FA;--s:#fff;--s2:#E9EEF5;--p:#0B1220;--sec:#51607A;--ac:#0A7FB5;--ok:#14894F;--wa:#9A6A00;--er:#C62A43;--bd:#0b122026;--gr:#0b122010;color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--p);font:15px/1.5 system-ui,"Segoe UI",Tahoma,sans-serif;background-image:linear-gradient(var(--gr) 1px,transparent 1px),linear-gradient(90deg,var(--gr) 1px,transparent 1px);background-size:40px 40px;background-attachment:fixed}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--bd);padding:8px 12px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.logo{font-weight:700;letter-spacing:.14em;font-size:13px;color:var(--ac)}
+.sw{position:relative;flex:1;min-width:140px}.sw input{width:100%}
+input,select,textarea{background:var(--s2);color:var(--p);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;font:inherit;min-height:44px}
+#res{position:absolute;inset-inline:0;top:100%;margin:4px 0 0;padding:4px;list-style:none;background:var(--s);border:1px solid var(--bd);border-radius:10px;z-index:9;max-height:60vh;overflow:auto}
+#res button{width:100%;text-align:start;background:none;border:0;color:var(--p);padding:8px;font:inherit;cursor:pointer;border-radius:6px}#res button:hover{background:var(--s2)}
+nav{display:flex;gap:4px;overflow-x:auto;margin-top:8px}nav button{flex:none}
+.btn{background:var(--s2);color:var(--p);border:1px solid var(--bd);border-radius:10px;padding:8px 14px;font:inherit;cursor:pointer;min-height:44px;transition:border-color .15s,transform .15s}.btn:hover{border-color:var(--ac)}.btn.on{border-color:var(--ac);color:var(--ac)}
+.btn.pri{background:var(--ac);color:#04121a;border-color:var(--ac);font-weight:600}
+main{max-width:1280px;margin:0 auto;padding:16px 12px 48px;animation:in .25s}@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.card{background:color-mix(in srgb,var(--s) 85%,transparent);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.hero{padding:28px 4px}.hero h1{margin:0;font-size:clamp(30px,7vw,64px);line-height:1;letter-spacing:.04em;font-weight:800}.hero h1 span{color:var(--ac)}.hero p{color:var(--sec);max-width:560px}
+.g{display:grid;gap:10px}.g5{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.stat b{display:block;font-size:28px}.stat span,.mut{color:var(--sec);font-size:13px}
+.bar{height:6px;background:var(--s2);border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac);transition:width .5s}
+.ov{overflow-x:auto;padding:4px 0 8px}.pt{display:grid;grid-template-columns:repeat(18,minmax(38px,1fr));grid-template-rows:repeat(7,auto) 8px auto auto;gap:3px;direction:ltr;min-width:720px}
+.tl{position:relative;aspect-ratio:1;min-width:0;border:1px solid var(--c);background:color-mix(in srgb,var(--c) 20%,var(--s));color:var(--p);border-radius:6px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:inherit;cursor:pointer;transition:transform .15s,box-shadow .15s,opacity .2s}
+.tl:hover{transform:translateY(-2px);box-shadow:0 0 14px color-mix(in srgb,var(--c) 60%,transparent);z-index:2}.tl b{font-size:9px;font-weight:500;color:var(--sec)}.tl strong{font-size:15px}.tl small{font-size:8px;display:none;color:var(--sec)}
+@media(min-width:1100px){.tl small{display:block}.tl strong{font-size:19px}.pt{gap:4px}}
+.tl i{position:absolute;left:0;bottom:0;height:3px;background:var(--ok);border-radius:0 2px 0 0}.dim{opacity:.14}.bad{animation:sh .25s;background:var(--er)}@keyframes sh{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.leg{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--sec)}.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:4px;vertical-align:middle}
+.fc{min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;animation:in .2s}.fc .big{font-size:clamp(48px,14vw,96px);font-weight:700;line-height:1.1}
+.sci{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.opts{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:14px 0}.opts .btn{font-size:17px;min-height:56px}.opts .ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 25%,var(--s))}.opts .no{border-color:var(--er);background:color-mix(in srgb,var(--er) 25%,var(--s))}
+.good{color:var(--ok)}.badc{color:var(--er)}.q{font-size:clamp(20px,4vw,28px);margin:8px 0}
+dialog{background:var(--s);color:var(--p);border:1px solid var(--bd);border-radius:16px;max-width:520px;width:calc(100% - 24px);padding:20px}dialog::backdrop{background:#000a}
+@media(max-width:600px){dialog{margin:auto 0 0;width:100%;max-width:none;border-radius:16px 16px 0 0}}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:12px 0}dt{color:var(--sec)}dd{margin:0}
+.big2{font-size:56px;font-weight:700;line-height:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header class="hd"><div class="row"><span class="logo">PT·LAB</span><div class="sw"><input id="q" type="search" autocomplete="off" data-p="ph" aria-label="Search"><ul id="res" hidden></ul></div>
+<button class="btn" data-a="lang" aria-label="Language">FA</button><button class="btn" data-a="theme" aria-label="Theme">◐</button><span class="mut" id="xp"></span></div>
+<nav id="nav"></nav></header><main id="main"></main><dialog id="dlg"></dialog>
+<script>
+const D={home:['Home','خانه'],table:['Table','جدول تناوبی'],flash:['Flashcards','فلش‌کارت'],quiz:['Quiz','آزمون'],speed:['Speed','سرعت'],
+h1:['PERIODIC TABLE','جدول تناوبی'],h2:['TRAINING LAB','آزمایشگاه تمرین'],sub:['Explore, drill and master the elements, starting with 1–36.','عناصر را بشناسید، تمرین کنید و به آن‌ها مسلط شوید؛ از 1 تا 36 شروع کنید.'],
+ans:['Answered','پاسخ‌ها'],acc:['Accuracy','دقت'],streak:['Day streak','روزهای پیاپی'],mast:['Mastered','مسلط'],weak:['Weak','ضعیف'],rec:['Recommended next','پیشنهاد بعدی'],track:['Master 1–36','تسلط بر 1–36'],
+all:['All elements','همه عناصر'],core:['Core 1–36','اصلی 1–36'],imp:['Important','مهم'],metals:['Metals','فلزات'],nonm:['Nonmetals','نافلزات'],view:['View','نمایش'],filter:['Filter','فیلتر'],
+m_cat:['Category','دسته'],m_blk:['Block','بلوک'],m_st:['State','حالت'],m_ms:['Mastery','تسلط'],pool:['Elements','عناصر'],
+again:['Again','دوباره'],hard:['Hard','سخت'],good:['Good','خوب'],easy:['Easy','آسان'],tap:['Tap to flip (Space)','برای چرخاندن ضربه بزنید'],
+ok:['✓ CORRECT','✓ درست'],no:['✕ NOT QUITE','✕ تقریباً'],next:['Next','بعدی'],score:['Score','امتیاز'],start:['Start','شروع'],restart:['Play again','دوباره'],
+fav:['Favorite','علاقه‌مندی'],mass:['Atomic mass','جرم اتمی'],grp:['Group','گروه'],per:['Period','دوره'],blk:['Block','بلوک'],cat:['Category','دسته'],sta:['State','حالت'],cfg:['Configuration','آرایش الکترونی'],val:['Valence electrons','الکترون‌های ظرفیت'],var:['varies','متغیر'],
+priv:['Your learning progress stays on this device.','پیشرفت شما فقط روی این دستگاه ذخیره می‌شود.'],exp:['Export progress','برون‌ریزی پیشرفت'],imp2:['Import progress','درون‌ریزی پیشرفت'],rst:['Reset data','بازنشانی'],rstq:['Click again to confirm','برای تأیید دوباره بزنید'],
+ph:['Search: 26, Fe, Iron, آهن, halogen, g17…','جستجو: 26، Fe، Iron، آهن، هالوژن…'],find:['Find','پیدا کنید'],time:['Time','زمان'],best:['Best','بهترین'],rtm:['Avg reaction','میانگین واکنش'],miss:['Misses','اشتباه'],
+l0:['Easy · 1–36','آسان · 1–36'],l1:['Medium · all','متوسط · همه'],l2:['Hard · blind table','سخت · جدول کور'],len:['Questions','تعداد سؤال'],mode:['Mode','حالت'],weakel:['Weak elements','عناصر ضعیف'],
+q1:['Symbol of {x}?','نماد {x} چیست؟'],q2:['Which element has atomic number {x}?','کدام عنصر عدد اتمی {x} دارد؟'],q3:['Which element is {x}?','{x} کدام عنصر است؟'],q4:['Category of {x}?','دستهٔ {x} چیست؟'],q5:['Group of {x}?','گروه {x} کدام است؟'],q6:['Period of {x}?','دورهٔ {x} کدام است؟'],q7:['Which element has configuration {x}?','کدام عنصر آرایش {x} دارد؟'],
+f1:['Number → Symbol','عدد → نماد'],f2:['Symbol → Name','نماد → نام'],f3:['Name → Symbol','نام → نماد'],f4:['Symbol → Number','نماد → عدد'],f5:['Element → Category','عنصر → دسته'],f6:['Element → Configuration','عنصر → آرایش'],
+s0:['New','جدید'],s1:['Learning','در حال یادگیری'],s2:['Known','آشنا'],s3:['Mastered','مسلط'],
+solid:['Solid','جامد'],gas:['Gas','گاز'],liquid:['Liquid','مایع'],unknown:['Unknown','نامشخص'],
+alk:['Alkali metal','فلز قلیایی'],ae:['Alkaline earth metal','فلز قلیایی خاکی'],tm:['Transition metal','فلز واسطه'],pt:['Post-transition metal','فلز پس از واسطه'],md:['Metalloid','شبه‌فلز'],nm:['Nonmetal','نافلز'],hal:['Halogen','هالوژن'],ng:['Noble gas','گاز نجیب'],lan:['Lanthanide','لانتانید'],act:['Actinide','اکتینید'],
+fin:['Final score','امتیاز نهایی'],lv:['Difficulty','سختی'],ok2:['Imported','وارد شد'],bad2:['Invalid JSON','JSON نامعتبر'],none:['Nothing here yet','هنوز چیزی نیست'],fvs:['My elements','عناصر من']};
+const T={en:{},fa:{}};for(const k in D){T.en[k]=D[k][0];T.fa[k]=D[k][1]}
+let st={};try{st=JSON.parse(localStorage.getItem('ptl')||'{}')}catch(e){}
+st.m=st.m||{};st.fav=st.fav||[];st.qa=st.qa||0;st.qc=st.qc||0;st.days=st.days||[];st.best=st.best||0;st.lang=st.lang||'en';st.theme=st.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+const save=()=>{try{localStorage.setItem('ptl',JSON.stringify(st))}catch(e){}};
+const t=k=>T[st.lang][k]||k,$=s=>document.querySelector(s),shuf=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+/* ---------- data ---------- */
+const N="H Hydrogen هیدروژن;He Helium هلیم;Li Lithium لیتیم;Be Beryllium بریلیم;B Boron بور;C Carbon کربن;N Nitrogen نیتروژن;O Oxygen اکسیژن;F Fluorine فلوئور;Ne Neon نئون;Na Sodium سدیم;Mg Magnesium منیزیم;Al Aluminium آلومینیوم;Si Silicon سیلیسیم;P Phosphorus فسفر;S Sulfur گوگرد;Cl Chlorine کلر;Ar Argon آرگون;K Potassium پتاسیم;Ca Calcium کلسیم;Sc Scandium اسکاندیم;Ti Titanium تیتانیوم;V Vanadium وانادیم;Cr Chromium کروم;Mn Manganese منگنز;Fe Iron آهن;Co Cobalt کبالت;Ni Nickel نیکل;Cu Copper مس;Zn Zinc روی;Ga Gallium گالیم;Ge Germanium ژرمانیم;As Arsenic آرسنیک;Se Selenium سلنیوم;Br Bromine بروم;Kr Krypton کریپتون;Rb Rubidium روبیدیم;Sr Strontium استرانسیم;Y Yttrium ایتریم;Zr Zirconium زیرکونیم;Nb Niobium نیوبیم;Mo Molybdenum مولیبدن;Tc Technetium تکنسیم;Ru Ruthenium روتنیم;Rh Rhodium رودیم;Pd Palladium پالادیم;Ag Silver نقره;Cd Cadmium کادمیم;In Indium ایندیم;Sn Tin قلع;Sb Antimony آنتیموان;Te Tellurium تلوریم;I Iodine ید;Xe Xenon زنون;Cs Caesium سزیم;Ba Barium باریم;La Lanthanum لانتان;Ce Cerium سریم;Pr Praseodymium پراسئودیمیم;Nd Neodymium نئودیمیم;Pm Promethium پرومتیم;Sm Samarium ساماریم;Eu Europium اروپیم;Gd Gadolinium گادولینیم;Tb Terbium تربیم;Dy Dysprosium دیسپروزیم;Ho Holmium هولمیم;Er Erbium اربیم;Tm Thulium تولیم;Yb Ytterbium ایتربیم;Lu Lutetium لوتتیم;Hf Hafnium هافنیم;Ta Tantalum تانتال;W Tungsten تنگستن;Re Rhenium رنیم;Os Osmium اسمیم;Ir Iridium ایریدیم;Pt Platinum پلاتین;Au Gold طلا;Hg Mercury جیوه;Tl Thallium تالیم;Pb Lead سرب;Bi Bismuth بیسموت;Po Polonium پولونیم;At Astatine آستاتین;Rn Radon رادون;Fr Francium فرانسیم;Ra Radium رادیم;Ac Actinium اکتینیم;Th Thorium توریم;Pa Protactinium پروتاکتینیم;U Uranium اورانیم;Np Neptunium نپتونیم;Pu Plutonium پلوتونیم;Am Americium آمریسیم;Cm Curium کوریم;Bk Berkelium برکلیم;Cf Californium کالیفرنیم;Es Einsteinium انیشتینیم;Fm Fermium فرمیم;Md Mendelevium مندلیفیم;No Nobelium نوبلیم;Lr Lawrencium لارنسیم;Rf Rutherfordium رادرفوردیم;Db Dubnium دوبنیم;Sg Seaborgium سیبورگیم;Bh Bohrium بوریم;Hs Hassium هاسیم;Mt Meitnerium مایتنریم;Ds Darmstadtium دارمشتادتیم;Rg Roentgenium رونتگنیم;Cn Copernicium کوپرنیسیم;Nh Nihonium نیهونیم;Fl Flerovium فلروویم;Mc Moscovium مسکویم;Lv Livermorium لیورموریم;Ts Tennessine تنسین;Og Oganesson اوگانسون".split(';').map(s=>s.split(' '));
+const MS="1.008 4.0026 6.94 9.0122 10.81 12.011 14.007 15.999 18.998 20.180 22.990 24.305 26.982 28.085 30.974 32.06 35.45 39.948 39.098 40.078 44.956 47.867 50.942 51.996 54.938 55.845 58.933 58.693 63.546 65.38 69.723 72.630 74.922 78.971 79.904 83.798 85.468 87.62 88.906 91.224 92.906 95.95 [98] 101.07 102.91 106.42 107.87 112.41 114.82 118.71 121.76 127.60 126.90 131.29 132.91 137.33 138.91 140.12 140.91 144.24 [145] 150.36 151.96 157.25 158.93 162.50 164.93 167.26 168.93 173.05 174.97 178.49 180.95 183.84 186.21 190.23 192.22 195.08 196.97 200.59 204.38 207.2 208.98 [209] [210] [222] [223] [226] [227] 232.04 231.04 238.03 [237] [244] [243] [247] [247] [251] [252] [257] [258] [259] [266] [267] [268] [269] [270] [269] [278] [281] [282] [285] [286] [289] [290] [293] [294] [294]".split(' ');
+const S=s=>s.split(' ').map(Number),AL=S('3 11 19 37 55 87'),AE=S('4 12 20 38 56 88'),NG=S('2 10 18 36 54 86 118'),HA=S('9 17 35 53 85 117'),MD=S('5 14 32 33 51 52'),NMt=S('1 6 7 8 15 16 34'),PT=S('13 31 49 50 81 82 83 84 113 114 115 116'),GAS=S('1 2 7 8 9 10 17 18 36 54 86'),IMP=S('37 38 47 48 50 53 54 55 56 74 78 79 80 82 83 92');
+const ORD="1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p".split(' '),CAP={s:2,p:6,d:10,f:14};
+const EX=[[24,'4s','3d',1],[29,'4s','3d',1],[41,'5s','4d',1],[42,'5s','4d',1],[44,'5s','4d',1],[45,'5s','4d',1],[46,'5s','4d',2],[47,'5s','4d',1],[57,'4f','5d',1],[58,'4f','5d',1],[64,'4f','5d',1],[78,'6s','5d',1],[79,'6s','5d',1],[89,'5f','6d',1],[90,'5f','6d',2],[91,'5f','6d',1],[92,'5f','6d',1],[93,'5f','6d',1],[96,'5f','6d',1],[103,'6d','7p',1]];
+const sup=n=>String(n).replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
+function cfg(z){const o={};let r=z;for(const k of ORD){const n=Math.min(r,CAP[k[1]]);if(n<=0)break;o[k]=n;r-=n}
+ EX.forEach(([zz,a,b,c])=>{if(zz==z){o[a]-=c;if(!o[a])delete o[a];o[b]=(o[b]||0)+c}});
+ return Object.keys(o).sort((a,b)=>a[0]-b[0]||'spdf'.indexOf(a[1])-'spdf'.indexOf(b[1])).map(k=>k+sup(o[k])).join(' ')}
+const per=z=>z<3?1:z<11?2:z<19?3:z<37?4:z<55?5:z<87?6:7;
+function pos(z){const p=per(z);let r=p,c;if(z==1)c=1;else if(z==2)c=18;else if(p<4){const d=z-(p==2?2:10);c=d<3?d:d+10}else if(p<6)c=z-(p==4?18:36);
+ else if(p==6){c=z-54;if(z>56&&z<72)r=9;else if(z>71)c=z-68}else{c=z-86;if(z>88&&z<104)r=10;else if(z>103)c=z-100}return[r,c]}
+const E=N.map((a,i)=>{const z=i+1,[r,c]=pos(z),g=r<=7?c:null;
+ const k=AL.includes(z)?'alk':AE.includes(z)?'ae':NG.includes(z)?'ng':HA.includes(z)?'hal':MD.includes(z)?'md':NMt.includes(z)?'nm':PT.includes(z)?'pt':z>56&&z<72?'lan':z>88&&z<104?'act':'tm';
+ return{z,s:a[0],en:a[1],fa:a[2],m:MS[i],r,c,g,p:per(z),k,b:z==2?'s':r>=9?'f':g<=2?'s':g>=13?'p':'d',st:z>=104?'unknown':GAS.includes(z)?'gas':z==35||z==80?'liquid':'solid',cf:cfg(z),v:z==2?2:g&&g<=2?g:g>=13?g-10:null}});
+const CK=['alk','ae','tm','pt','md','nm','hal','ng','lan','act'];
+const CC={alk:'#ff7a8a',ae:'#ffb36b',tm:'#63d6ff',pt:'#8fa8ff',md:'#65e6a5',nm:'#b6e36b',hal:'#ffc857',ng:'#c792ff',lan:'#4fd1c5',act:'#f78fd0'},BC={s:'#ff7a8a',p:'#ffc857',d:'#63d6ff',f:'#c792ff'},SC={solid:'#ffc857',liquid:'#65e6a5',gas:'#63d6ff',unknown:'#6b7686'};
+const MC=s=>s>=81?'#65e6a5':s>=61?'#b6e36b':s>=41?'#ffc857':s>=21?'#ff9a5c':s>0?'#ff667a':'#6b7686';
+/* ---------- mastery ---------- */
+const nm=e=>st.lang=='fa'?e.fa:e.en,catL=e=>t(e.k);
+const sc=z=>{const m=st.m[z];if(!m)return 0;const n=m.c+m.w;return n?Math.round(100*m.c/(n+1)*Math.min(1,n/4)):0};
+const wk=z=>{const m=st.m[z];return m&&m.w>m.c-0.5&&m.w>0};
+const IMPL=E.filter(e=>IMP.includes(e.z));
+const poolOf=k=>{const w=E.filter(e=>wk(e.z));return k=='weak'?(w.length?w:E.slice(0,36)):k=='all'?E:k=='imp'?E.slice(0,36).concat(IMPL):E.slice(0,36)};
+const pick=(pool,ex)=>{const w=pool.map(e=>e.z==ex?0:1+(100-sc(e.z))/12+(wk(e.z)?3:0));let r=Math.random()*w.reduce((a,b)=>a+b,0);for(let i=0;i<pool.length;i++){r-=w[i];if(r<=0)return pool[i]}return pool[0]};
+const today=()=>new Date().toISOString().slice(0,10);
+function mark(){if(!st.days.includes(today()))st.days=st.days.concat(today()).slice(-400)}
+function rec(z,ok,d){const m=st.m[z]=st.m[z]||{c:0,w:0,b:0};if(ok)m.c+=d||1;else m.w++;st.qa++;if(ok)st.qc++;mark();save()}
+function streak(){let n=0,d=new Date();const f=x=>x.toISOString().slice(0,10);if(!st.days.includes(f(d)))d.setDate(d.getDate()-1);while(st.days.includes(f(d))){n++;d.setDate(d.getDate()-1)}return n}
+/* ---------- ui helpers ---------- */
+const O={tbl:{mode:'cat',flt:'all'},fc:{mode:'f1',pool:'core'},qs:{pool:'core',n:'10'},sp:{lv:'0'}};
+let view='home',fcs=null,qz=null,spr=null,rstArm=0;
+const sel=(p,opts,v)=>`<select data-s="${p}" aria-label="${p}">${opts.map(o=>`<option value="${o[0]}"${o[0]==v?' selected':''}>${o[1]}</option>`).join('')}</select>`;
+const FL={all:()=>1,core:e=>e.z<=36,imp:e=>IMP.includes(e.z),metals:e=>['alk','ae','tm','pt','lan','act'].includes(e.k),nonm:e=>['nm','hal','ng'].includes(e.k)};
+const colr=(e,m)=>m=='cat'?CC[e.k]:m=='blk'?BC[e.b]:m=='st'?SC[e.st]:MC(sc(e.z));
+const tile=(e,o={})=>{const v=o.v||0;return `<button class="tl${o.dim?' dim':''}" data-z="${e.z}" title="${v?'':nm(e)}" aria-label="${v==2?'row '+e.r+' column '+e.c:e.z+' '+nm(e)}" style="grid-row:${e.r};grid-column:${e.c};--c:${o.col}"><b>${v?'':e.z}</b><strong>${v==2?'':e.s}</strong><small>${v?'':nm(e)}</small>${v?'':`<i style="width:${sc(e.z)}%"></i>`}</button>`};
+const bar=p=>`<div class="bar"><i style="width:${p}%"></i></div>`;
+const stages=[[1,10],[11,18],[19,20],[21,30],[31,36]],avg=(a,b)=>{let s=0;for(let z=a;z<=b;z++)s+=sc(z);return Math.round(s/(b-a+1))};
+/* ---------- views ---------- */
+const V={};
+V.home=()=>{const a=st.qa?Math.round(100*st.qc/st.qa):0,low=stages.map(s=>[avg(...s),s]).sort((x,y)=>x[0]-y[0])[0],fv=st.fav.map(z=>E[z-1]);
+return `<section class="hero"><h1>${t('h1')}<br><span>${t('h2')}</span></h1><p>${t('sub')}</p><div class="row"><button class="btn pri" data-a="go" data-v="quiz">${t('quiz')}</button><button class="btn" data-a="go" data-v="flash">${t('flash')}</button><button class="btn" data-a="go" data-v="speed">${t('speed')}</button><button class="btn" data-a="go" data-v="table">${t('table')}</button></div></section>
+<div class="g g5"><div class="card stat"><b>${st.qa}</b><span>${t('ans')}</span></div><div class="card stat"><b>${a}%</b><span>${t('acc')}</span></div><div class="card stat"><b>${streak()}</b><span>${t('streak')}</span></div><div class="card stat"><b>${E.filter(e=>sc(e.z)>=81).length}</b><span>${t('mast')}</span></div><div class="card stat"><b>${E.filter(e=>wk(e.z)).length}</b><span>${t('weak')}</span></div></div>
+<div class="g g2" style="margin-top:10px"><div class="card"><h3>${t('track')}</h3>${stages.map(s=>`<div class="row" style="margin:8px 0"><span class="sci mut" style="width:56px">${s[0]}–${s[1]}</span><div style="flex:1">${bar(avg(...s))}</div><span class="mut" style="width:38px">${avg(...s)}%</span></div>`).join('')}
+<p class="mut">${t('rec')}: <b class="sci">${low[1][0]}–${low[1][1]}</b> · ${low[0]}%</p><button class="btn" data-a="go" data-v="flash">${t('flash')}</button></div>
+<div class="card"><h3>${t('fvs')}</h3><div class="row">${fv.length?fv.map(e=>`<button class="btn" data-z="${e.z}">${e.s}</button>`).join(''):`<span class="mut">${t('none')}</span>`}</div>
+<h3>${t('priv')}</h3><div class="row"><button class="btn" data-a="exp">${t('exp')}</button><button class="btn" data-a="imp">${t('imp2')}</button><button class="btn" data-a="rst">${rstArm?t('rstq'):t('rst')}</button></div><textarea id="io" rows="3" style="width:100%;margin-top:8px" aria-label="JSON"></textarea><div class="mut" id="msg"></div></div></div>`};
+V.table=()=>{const m=O.tbl.mode,f=FL[O.tbl.flt]||(e=>e.k==O.tbl.flt);
+const leg=m=='cat'?CK.map(k=>[CC[k],t(k)]):m=='blk'?Object.keys(BC).map(k=>[BC[k],k+'-block']):m=='st'?Object.keys(SC).map(k=>[SC[k],t(k)]):[['#6b7686','0%'],['#ff667a','1–20'],['#ff9a5c','21–40'],['#ffc857','41–60'],['#b6e36b','61–80'],['#65e6a5','81–100%']];
+return `<div class="row">${sel('tbl.mode',[['cat',t('m_cat')],['blk',t('m_blk')],['st',t('m_st')],['ms',t('m_ms')]],m)}${sel('tbl.flt',[['all',t('all')],['core',t('core')],['imp',t('imp')],['metals',t('metals')],['nonm',t('nonm')],...CK.map(k=>[k,t(k)])],O.tbl.flt)}</div>
+<div class="leg" style="margin:10px 0">${leg.map(l=>`<span><i style="background:${l[0]}"></i>${l[1]}</span>`).join('')}</div><div class="ov"><div class="pt">${E.map(e=>tile(e,{col:colr(e,m),dim:!f(e)})).join('')}</div></div>`};
+const FM={f1:[e=>e.z,e=>e.s],f2:[e=>e.s,e=>nm(e)],f3:[e=>nm(e),e=>e.s],f4:[e=>e.s,e=>e.z],f5:[e=>e.s+' · '+nm(e),e=>catL(e)],f6:[e=>e.s+' · '+nm(e),e=>`<span class="sci">${e.cf}</span>`]};
+const fcNext=()=>{fcs={e:pick(poolOf(O.fc.pool),fcs&&fcs.e.z),flip:0}};
+V.flash=()=>{if(!fcs)fcNext();const e=fcs.e,[fr,bk]=FM[O.fc.mode],m=st.m[e.z],b=m?Math.max(m.b||0,1)==1&&!(m.b>=1)?1:m.b:null,lab=m?t('s'+Math.max(1,m.b||0)):t('s0');
+return `<div class="row">${sel('fc.mode',Object.keys(FM).map(k=>[k,t(k)]),O.fc.mode)}${sel('fc.pool',[['core',t('core')],['imp',t('imp')],['all',t('all')],['weak',t('weakel')]],O.fc.pool)}</div>
+<div class="card fc" data-a="flip" tabindex="0" role="button" style="margin:12px 0">${fcs.flip?`<div class="big">${bk(e)}</div><p>${e.s} · ${nm(e)} · <span class="sci">${e.z}</span> · ${catL(e)}</p>`:`<div class="big">${fr(e)}</div><p class="mut">${t('tap')}</p>`}<span class="mut">${lab}</span></div>
+${fcs.flip?`<div class="row">${['again','hard','good','easy'].map((k,i)=>`<button class="btn${i==2?' pri':''}" data-a="rate" data-v="${i}">${t(k)} <small>${i+1}</small></button>`).join('')}</div>`:''}`};
+function rate(g){const e=fcs.e,m=st.m[e.z]=st.m[e.z]||{c:0,w:0,b:0};if(g==0)m.w++;else m.c+=[0,.5,1,2][g];m.b=[0,Math.max(1,m.b),Math.min(3,m.b+1),Math.min(3,m.b+2)][g];st.qa++;if(g)st.qc++;mark();save();fcNext();render()}
+function mkQ(pool){const e=pick(pool,qz.last);qz.last=e.z;let ty=1+Math.floor(Math.random()*7);if(ty==5&&!e.g)ty=1;
+ const near=pool.filter(x=>x.z!=e.z&&Math.abs(x.z-e.z)<=8),els=shuf([e,...shuf(near.length>2?near:E.filter(x=>x.z!=e.z&&Math.abs(x.z-e.z)<=8)).slice(0,3)]);let x,o;
+ if(ty==1){x=nm(e);o=els.map(y=>({l:y.s,ok:y==e}))}else if(ty==2){x=e.z;o=els.map(y=>({l:nm(y),ok:y==e}))}else if(ty==3){x=e.s;o=els.map(y=>({l:nm(y),ok:y==e}))}
+ else if(ty==4){x=nm(e);o=shuf(shuf(CK.filter(k=>k!=e.k)).slice(0,3).concat(e.k)).map(k=>({l:t(k),ok:k==e.k}))}
+ else if(ty==5||ty==6){const key=ty==5?'g':'p',mx=ty==5?18:7;x=nm(e);o=shuf(shuf([...Array(mx).keys()].map(i=>i+1).filter(v=>v!=e[key])).slice(0,3).concat(e[key])).map(v=>({l:v,ok:v==e[key]}))}
+ else{x=`<span class="sci">${e.cf}</span>`;o=els.map(y=>({l:y.s,ok:y==e}))}
+ return{q:t('q'+ty).replace('{x}',x),o,e}}
+V.quiz=()=>{if(!qz)return `<div class="card"><h3>${t('quiz')}</h3><div class="row">${sel('qs.pool',[['core',t('core')],['imp',t('imp')],['all',t('all')],['weak',t('weakel')]],O.qs.pool)}${sel('qs.n',[['10','10'],['20','20'],['30','30']],O.qs.n)}<button class="btn pri" data-a="qstart">${t('start')}</button></div></div>`;
+ if(qz.i>=qz.n)return `<div class="card"><h2>${t('fin')}</h2><div class="big2">${Math.round(100*qz.s/qz.n)}%</div><p>${qz.s} / ${qz.n}</p><button class="btn pri" data-a="qstart">${t('restart')}</button></div>`;
+ const c=qz.cur,a=qz.a;return `<div class="card"><div class="mut">${qz.i+1} / ${qz.n} · ${t('score')} ${qz.s}</div>${bar(100*qz.i/qz.n)}<div class="q">${c.q}</div><div class="opts">${c.o.map((o,i)=>`<button class="btn${a!=null?(o.ok?' ok':i==a?' no':''):''}" data-a="ans" data-v="${i}"${a!=null?' disabled':''}>${o.l}</button>`).join('')}</div>
+${a!=null?`<div class="${c.o[a].ok?'good':'badc'}"><b>${t(c.o[a].ok?'ok':'no')}</b> — <span class="sci">${c.e.s}</span> · ${nm(c.e)} · ${c.e.z}</div><button class="btn pri" id="nx" data-a="qnext" style="margin-top:10px">${t('next')}</button>`:''}</div>`};
+function spStart(){const lv=+O.sp.lv;spr={on:1,pool:poolOf(lv?'all':'core'),sc:0,miss:0,rt:[],end:Date.now()+60000};nextT();spr.iv=setInterval(()=>{const l=Math.max(0,Math.ceil((spr.end-Date.now())/1000)),el=$('#tm');if(el)el.textContent=l;if(!l)spEnd()},200);render()}
+const nextT=()=>{spr.tg=pick(spr.pool,spr.tg&&spr.tg.z);spr.t0=Date.now()};
+function spHit(z,el){if(!spr||!spr.on)return;const ok=z==spr.tg.z;rec(spr.tg.z,ok);if(ok){spr.sc++;spr.rt.push(Date.now()-spr.t0);nextT()}else{spr.miss++;el.classList.add('bad');setTimeout(()=>el.classList.remove('bad'),300)}$('#tg').textContent=nm(spr.tg);$('#ss').textContent=spr.sc}
+function spEnd(){clearInterval(spr.iv);spr.on=0;spr.done=1;st.best=Math.max(st.best,spr.sc);save();render()}
+V.speed=()=>{if(!spr||spr.done){const r=spr;return `<div class="card"><h3>${t('speed')} · 60s</h3>${r?`<div class="big2">${r.sc}</div><p>${t('acc')}: ${r.sc+r.miss?Math.round(100*r.sc/(r.sc+r.miss)):0}% · ${t('rtm')}: ${r.rt.length?(r.rt.reduce((a,b)=>a+b,0)/r.rt.length/1000).toFixed(1):'–'}s · ${t('miss')}: ${r.miss}</p>`:''}<p class="mut">${t('best')}: ${st.best}</p><div class="row">${sel('sp.lv',[['0',t('l0')],['1',t('l1')],['2',t('l2')]],O.sp.lv)}<button class="btn pri" data-a="spstart">${t('start')}</button></div></div>`}
+ const lv=+O.sp.lv;return `<div class="card row" style="justify-content:space-between;position:sticky;top:96px;z-index:3"><span>${t('find')}: <b style="font-size:24px" id="tg">${nm(spr.tg)}</b></span><span>${t('score')} <b id="ss">${spr.sc}</b> · ${t('time')} <b id="tm">60</b></span></div><div class="ov"><div class="pt">${E.map(e=>tile(e,{col:colr(e,'cat'),v:lv==2?2:1})).join('')}</div></div>`};
+/* ---------- detail ---------- */
+function openEl(z){const e=E[z-1],f=st.fav.includes(z);
+$('#dlg').innerHTML=`<div class="row" style="justify-content:space-between"><span class="mut sci">${e.z}</span><button class="btn" data-a="fav" data-v="${z}" aria-pressed="${f}">${f?'★':'☆'} ${t('fav')}</button><button class="btn" data-a="close" aria-label="Close">✕</button></div><div class="big2" style="color:${CC[e.k]}">${e.s}</div><h2 style="margin:4px 0">${e.en}</h2><div style="font-size:20px">${e.fa}</div>
+<dl><dt>${t('mass')}</dt><dd class="sci">${e.m}</dd><dt>${t('grp')}</dt><dd>${e.g||'—'}</dd><dt>${t('per')}</dt><dd>${e.p}</dd><dt>${t('blk')}</dt><dd>${e.b}</dd><dt>${t('cat')}</dt><dd>${catL(e)}</dd><dt>${t('sta')}</dt><dd>${t(e.st)}</dd><dt>${t('cfg')}</dt><dd class="sci">${e.cf}</dd><dt>${t('val')}</dt><dd>${e.v==null?t('var'):e.v}</dd><dt>${t('m_ms')}</dt><dd>${sc(z)}%</dd></dl>`;
+const d=$('#dlg');d.open||d.showModal()}
+/* ---------- render / events ---------- */
+function render(){const h=document.documentElement;h.lang=st.lang;h.dir=st.lang=='fa'?'rtl':'ltr';h.dataset.theme=st.theme;
+ $('#nav').innerHTML=['home','table','flash','quiz','speed'].map(k=>`<button class="btn${view==k?' on':''}" data-a="go" data-v="${k}">${t(k)}</button>`).join('');
+ $('#q').placeholder=t('ph');$('[data-a=lang]').textContent=st.lang=='fa'?'EN':'FA';$('#xp').textContent='★ '+E.filter(e=>sc(e.z)>=81).length+'/118';
+ $('#main').innerHTML=V[view]();const n=$('#nx');if(n)n.focus()}
+function go(v){if(spr&&spr.on){clearInterval(spr.iv);spr.on=0;spr.done=1}view=v;if(v=='speed'&&spr&&spr.done)spr=null;render()}
+function search(q){q=q.trim().toLowerCase();const r=$('#res');if(!q){r.hidden=true;return}
+ const m=E.filter(e=>String(e.z)==q||e.s.toLowerCase()==q||e.s.toLowerCase().startsWith(q)||e.en.toLowerCase().includes(q)||e.fa.includes(q)||T.en[e.k].toLowerCase().includes(q)||T.fa[e.k].includes(q)||'g'+e.g==q.replace(/\s/g,'')||'p'+e.p==q.replace(/\s/g,'')).slice(0,8);
+ r.innerHTML=m.map(e=>`<li><button data-z="${e.z}" data-q="1"><b class="sci">${e.z} ${e.s}</b> ${nm(e)} <span class="mut">· ${catL(e)}</span></button></li>`).join('')||`<li class="mut" style="padding:8px">${t('none')}</li>`;r.hidden=false}
+document.addEventListener('click',ev=>{const el=ev.target.closest('[data-a],[data-z]');if(!ev.target.closest('.sw'))$('#res').hidden=true;
+ if(ev.target==$('#dlg'))$('#dlg').close();if(!el)return;const a=el.dataset.a,v=el.dataset.v;
+ if(el.dataset.z&&!a){if(view=='speed'&&el.classList.contains('tl'))return spHit(+el.dataset.z,el);if(el.dataset.q){$('#res').hidden=true;$('#q').value=''}return openEl(+el.dataset.z)}
+ if(a=='go')go(v);else if(a=='lang'){st.lang=st.lang=='fa'?'en':'fa';save();render()}else if(a=='theme'){st.theme=st.theme=='dark'?'light':'dark';save();render()}
+ else if(a=='flip'){fcs.flip=1-fcs.flip;render()}else if(a=='rate')rate(+v);
+ else if(a=='qstart'){qz={i:0,n:+O.qs.n,s:0,a:null,last:0,pool:poolOf(O.qs.pool)};qz.cur=mkQ(qz.pool);render()}
+ else if(a=='ans'){if(qz.a!=null)return;qz.a=+v;const ok=qz.cur.o[qz.a].ok;if(ok)qz.s++;rec(qz.cur.e.z,ok);render()}
+ else if(a=='qnext'){qz.i++;qz.a=null;if(qz.i<qz.n)qz.cur=mkQ(qz.pool);render()}
+ else if(a=='spstart')spStart();else if(a=='close')$('#dlg').close();
+ else if(a=='fav'){const z=+v;st.fav=st.fav.includes(z)?st.fav.filter(x=>x!=z):st.fav.concat(z);save();openEl(z);render()}
+ else if(a=='exp'){const io=$('#io');io.value=JSON.stringify(st);io.select()}
+ else if(a=='imp'){try{const j=JSON.parse($('#io').value);if(typeof j!='object'||!j)throw 0;Object.assign(st,j);save();render();$('#msg').textContent=t('ok2')}catch(e){$('#msg').textContent=t('bad2')}}
+ else if(a=='rst'){if(!rstArm){rstArm=1;render();return}try{localStorage.removeItem('ptl')}catch(e){}st.m={};st.fav=[];st.qa=st.qc=st.best=0;st.days=[];rstArm=0;save();render()}});
+document.addEventListener('change',ev=>{const el=ev.target.closest('[data-s]');if(!el)return;const[o,k]=el.dataset.s.split('.');O[o][k]=el.value;if(o=='fc')fcs=null;render()});
+$('#q').addEventListener('input',ev=>search(ev.target.value));
+document.addEventListener('keydown',ev=>{const tg=ev.target.tagName;if((ev.ctrlKey||ev.metaKey)&&ev.key=='k'){ev.preventDefault();return $('#q').focus()}
+ if(ev.key=='Escape')$('#res').hidden=true;if(/INPUT|TEXTAREA|SELECT/.test(tg)||ev.ctrlKey||ev.metaKey||ev.altKey)return;const k=ev.key.toLowerCase();
+ if(k=='/'){ev.preventDefault();$('#q').focus()}else if(k=='f')go('flash');else if(k=='q')go('quiz');else if(k=='t')go('table');else if(k=='d'){st.theme=st.theme=='dark'?'light':'dark';save();render()}else if(k=='l'){st.lang=st.lang=='fa'?'en':'fa';save();render()}
+ else if(view=='flash'&&fcs){if(k==' '&&tg!='BUTTON'){ev.preventDefault();fcs.flip=1-fcs.flip;render()}else if(fcs.flip&&'1234'.includes(k)&&k)rate(+k-1)}});
+render();
+</script></body></html>
